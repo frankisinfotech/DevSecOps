@@ -34,11 +34,12 @@ pipeline {
       //  }
         stage('Push to AWS ECR') {
             steps {
-              //withDockerRegistry([credentialsId: "aws-credentials", url: "https://985729960198.dkr.ecr.eu-west-2.amazonaws.com", "ecr:eu-west-2:aws-credentials") {
-              withDockerRegistry([credentialsId: "aws-credentials", url: "https://985729960198.dkr.ecr.eu-west-2.amazonaws.com"]) {
-                sh 'docker push frankisinfotech/springboot:""$GIT_COMMIT""'
+              script {
+                  docker.withRegistry('https://985729960198.dkr.ecr.eu-west-2.amazonaws.com', 'ecr:eu-west-2:aws-credentials') {
+                    docker push frankisinfotech/springboot:""$GIT_COMMIT""
               }
             }
+          }
         }
   }
 }
