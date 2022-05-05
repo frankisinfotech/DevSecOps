@@ -19,14 +19,18 @@ pipeline {
            }
          }
       }
-       stage('Build DOcker Image') {
+       stage('Build Docker Image') {
             steps {
-              withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
                 sh 'printenv'
                 sh 'docker build -t frankisinfotech/springboot:""$GIT_COMMIT"" .'
+              }
+            } 
+       stage('Push to DockerHub') {
+            steps {
+              withDockerRegistry([credentialsId: "docker-hub", url: ""]) {
                 sh 'docker push frankisinfotech/springboot:""$GIT_COMMIT""'
               }
             }
-        } 
+        }
   }
 }
