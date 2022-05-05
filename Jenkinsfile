@@ -8,7 +8,7 @@ pipeline {
               archiveArtifacts 'target/*.jar'
             }
         } 
-      stage('Build Artifact') {
+      stage('Unit Test') {
             steps {
               sh "mvn test"
             }
