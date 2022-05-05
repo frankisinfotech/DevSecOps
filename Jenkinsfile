@@ -21,7 +21,7 @@ pipeline {
       }
        stage('Build DOcker Image') {
             steps {
-              sh "printenv"
+              sh "printenv | grep -i git-commit"
             }
         } 
   }
