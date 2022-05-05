@@ -21,7 +21,7 @@ pipeline {
       }
        stage('Build DOcker Image') {
             steps {
-             docker.withRegistry([credentialsId: "docker-hub", url: "")
+             docker.withRegistry([credentialsId: "docker-hub", url: ""])
               sh 'printenv'
               sh 'docker build -t frankisinfotech/springboot:""$GIT_COMMIT"" .'
               sh 'docker push frankisinfotech/springboot:""$GIT_COMMIT""'
