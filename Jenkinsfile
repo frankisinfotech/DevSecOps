@@ -21,7 +21,7 @@ pipeline {
       }
        stage('Build DOcker Image') {
             steps {
-              sh "docker build -t mydock ."
+              sh "printenv"
             }
         } 
   }
