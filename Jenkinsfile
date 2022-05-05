@@ -36,7 +36,7 @@ pipeline {
             steps {
               script {
                   docker.withRegistry('https://985729960198.dkr.ecr.eu-west-2.amazonaws.com', 'ecr:eu-west-2:aws-credentials') {
-                    docker push frankisinfotech/springboot:""$GIT_COMMIT""
+                    docker push https://985729960198.dkr.ecr.eu-west-2.amazonaws.com/frankdemo:""$GIT_COMMIT""
               }
             }
           }
