@@ -39,14 +39,7 @@ pipeline {
       //        }
       //      }
       //  }
-        stage('Logging to AWS ECR') {
-            steps {
-                script {
-                sh "aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login -u frank --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
-                }
-                 
-            }
-        }
+      
          stage('Build image for ECR') {
              steps{
                  script {
@@ -54,14 +47,16 @@ pipeline {
                         }
                   }
             }
+    
         stage('Push to AWS ECR') {
             steps {
-                script {
-                  sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
-                  sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"  
+              script { 
+                  docker.withRegistry('${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com', 'ecr:${AWS_DEFAULT_REGION}:aws-credentials') {
+                  dockerImage.push("${env.BUILD_NUMBER}")
+                  dockerImage.push("latest")
               }
             }
           }
-        
+        }
   }
 }
