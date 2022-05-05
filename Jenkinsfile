@@ -21,7 +21,8 @@ pipeline {
       }
        stage('Build DOcker Image') {
             steps {
-              sh "printenv"
+              sh 'printenv'
+              sh 'docker build -t frankisinfotech/springboot:v1 ""$GIT_COMMIT"" .'
             }
         } 
   }
