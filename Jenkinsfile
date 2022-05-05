@@ -34,7 +34,7 @@ pipeline {
         }
         stage('Push to AWS ECR') {
             steps {
-              withDockerRegistry('https://985729960198.dkr.ecr.eu-west-2.amazonaws.com', 'ecr:eu-west-2:aws-credentials') {
+              withDockerRegistry("https://985729960198.dkr.ecr.eu-west-2.amazonaws.com", "ecr:eu-west-2:aws-credentials") {
                 sh 'docker push frankisinfotech/springboot:""$GIT_COMMIT""'
               }
             }
